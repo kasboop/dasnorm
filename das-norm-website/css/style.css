@@ -1,0 +1,346 @@
+/* ===========================================================
+   Design-Tokens
+   =========================================================== */
+:root {
+  --bg: #ffffff;
+  --ink: #121212;
+  --ink-soft: #6b6b6b;
+  --accent: #2b3bff;
+  --line: #e6e6e6;
+  --border-gruen: #22a559;
+  --nav-h: 72px;
+  --font: "Rubik", "Helvetica Neue", Arial, sans-serif;
+  --font-nav: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+  font-size: 18px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+video {
+  max-width: 100%;
+  display: block;
+}
+
+/* ===========================================================
+   Navigation (fix, oben)
+   =========================================================== */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-h);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 0 28px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-nav);
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #000000;
+}
+
+.nav__logo {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.nav__rubriken {
+  display: flex;
+  gap: 22px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav__rubriken::-webkit-scrollbar {
+  display: none;
+}
+
+.nav__rubriken a {
+  font-weight: 500;
+  color: #000000;
+  white-space: nowrap;
+  padding: 4px 2px;
+  border-bottom: 2px solid transparent;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.nav__rubriken a:hover,
+.nav__rubriken a[aria-current="true"] {
+  color: var(--ink-soft);
+  border-color: var(--accent);
+}
+
+/* Auf der Startseite bekommt die Nav denselben seitlichen Abstand wie das Raster darunter. */
+.nav--startseite {
+  padding: 0 5%;
+}
+
+/* ===========================================================
+   Startseite: Raster
+   =========================================================== */
+main {
+  padding-top: var(--nav-h);
+}
+
+.raster {
+  columns: 3;
+  column-gap: 10px;
+  padding: 0 5%;
+}
+
+.kachel {
+  position: relative;
+  display: block;
+  break-inside: avoid;
+  margin-bottom: 10px;
+  overflow: hidden;
+  background: #eeeeee;
+  cursor: pointer;
+}
+
+.kachel__bild {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 400ms ease;
+}
+
+.kachel:hover .kachel__bild {
+  transform: scale(1.03);
+}
+
+.kachel__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.kachel:hover .kachel__overlay,
+.kachel:focus-within .kachel__overlay {
+  opacity: 1;
+}
+
+.kachel__titel {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Rubrik-Label wird aktuell nirgends angezeigt (auf Wunsch ausgeblendet).
+   Markup bleibt bestehen, falls es künftig wieder gebraucht wird. */
+.kachel__rubrik {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .raster {
+    columns: 2;
+  }
+}
+
+@media (max-width: 560px) {
+  .raster {
+    columns: 1;
+  }
+  .nav {
+    padding: 0 16px;
+  }
+}
+
+/* ===========================================================
+   Projektseite
+   =========================================================== */
+.projekt-kopf {
+  max-width: 720px;
+  margin: 64px auto 0;
+  padding: 0 28px 48px;
+}
+
+.projekt-kopf__meta {
+  font-size: 15px;
+  color: var(--ink-soft);
+  margin: 0 0 18px;
+}
+
+.projekt-kopf h1 {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0 0 24px;
+}
+
+.projekt-kopf__intro {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink);
+  margin: 0;
+}
+
+/* Beschrieb: 1/3 Liste (Kunde, Jahr, Mitarbeit ...) ohne Bulletpoints,
+   2/3 Fliesstext. Liste und Text verwenden bewusst dieselbe Schrift. */
+.projekt-beschrieb {
+  margin: 0 0 64px;
+  padding: 0 5%;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 48px;
+}
+
+.projekt-beschrieb__liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.projekt-beschrieb__liste li {
+  margin: 0 0 6px;
+}
+
+.projekt-beschrieb__text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink);
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .projekt-beschrieb {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .projekt-medien-masonry {
+    columns: 1;
+  }
+}
+
+/* Video und Bilder gemeinsam zweispaltig im Masonry-Prinzip (wie das Raster
+   auf der Startseite): unterschiedliche Formate fliessen in zwei Spalten. */
+.projekt-medien-masonry {
+  columns: 2;
+  column-gap: 20px;
+  margin: 0 0 64px;
+  padding: 0 5%;
+}
+
+.projekt-medien-masonry__item {
+  break-inside: avoid;
+  margin-bottom: 20px;
+}
+
+.projekt-block {
+  margin: 0 0 64px;
+}
+
+/* Hochformatige Bilder: zentriert und in der Breite begrenzt,
+   damit ein 3:4-Bild nicht über die volle Viewport-Breite ausufert. */
+.projekt-block__bild-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.projekt-block__bild {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  background: #eeeeee;
+  display: block;
+  border: 20px solid var(--border-gruen);
+}
+
+/* Video bleibt breitformatig und geht über die volle Breite. */
+.projekt-block__video-wrap {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #111;
+}
+
+.projekt-block__video-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.projekt-block__bildunterschrift {
+  max-width: 720px;
+  margin: 12px auto 0;
+  padding: 0 28px;
+  font-size: 15px;
+  color: var(--ink-soft);
+}
+
+.projekt-fuss {
+  border-top: 1px solid var(--line);
+  padding: 28px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.projekt-fuss a:hover {
+  color: var(--accent);
+}
+
+.projekt-fuss__rechts {
+  text-align: right;
+}
+
+/* Seitenspezifische Anpassungen für motion-1.html: schmalerer, linksbündiger
+   Titel mit demselben 5%-Seitenrand wie der Rest der Seite. */
+.projekt--motion1 .projekt-kopf {
+  max-width: none;
+  margin: 64px 0 0;
+  padding: 0 5% 32px;
+}
+
+.projekt--motion1 .projekt-kopf h1 {
+  text-align: left;
+}
+
+.projekt--motion1 .projekt-fuss {
+  padding: 28px 5%;
+}
